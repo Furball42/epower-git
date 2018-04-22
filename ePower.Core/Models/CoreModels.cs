@@ -1,8 +1,6 @@
-﻿using System;
+﻿using ePower.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ePower.Core.Models
 {
@@ -43,9 +41,9 @@ namespace ePower.Core.Models
         public string Description { get; set; }
     }
 
-    #endregion
+    #endregion Base
 
-    #region Universal
+    #region Contact Entities
 
     public class Address : Base
     {
@@ -65,7 +63,6 @@ namespace ePower.Core.Models
 
     public class AddressType : BaseIdDescription
     {
-
     }
 
     public class EmailAddress : Base
@@ -86,17 +83,33 @@ namespace ePower.Core.Models
 
     public class PhoneNumberType : BaseIdDescription
     {
-
     }
 
-    public class Person : Base
+    public class Contact : Base
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string IDNumber { get; set; }       
+        public string IDNumber { get; set; }
+
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<EmailAddress> EmailAddresses { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
     }
 
-    #endregion
+    #endregion Contact Entities
+
+    #region Core - Clients
+
+    public class Client : Base
+    {
+        public string Name { get; set; }
+        public byte[] Logo { get; set; }
+
+        public virtual ApplicationUser Creator { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
+    }
+
+    #endregion Core - Clients
 
     #region Core - Organization
 
@@ -104,36 +117,19 @@ namespace ePower.Core.Models
     {
         public string Name { get; set; }
         public byte[] Image { get; set; }
+        public bool IsActive { get; set; }
 
-        public Guid CreatorId { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
     }
 
-    public class Level : BaseExtended
+    public class Level : BaseIdDescription
     {
-        public string Description { get; set; }
         public int SortOrder { get; set; }
     }
 
-    #endregion
-
-    #region Core - Clients
-
-    public class Client : Base
-    {
-        public string Name { get; set; }
-        //multiple email addresses
-        //multiple phone numbers
-    }
-
-    public class ClientContacts : Base
-    {
-        //client id
-        //person id
-        //is main contact
-    }
-
-    #endregion
-
+    #endregion Core - Organization
+    
     #region Core - Project
 
     public class Project : BaseExtended
@@ -141,6 +137,8 @@ namespace ePower.Core.Models
         public string Description { get; set; }
         public string ShortCode { get; set; }
         public bool IsActive { get; set; }
+
+        public virtual ApplicationUser Creator { get; set; }
     }
 
     public class Task : BaseExtended
@@ -157,6 +155,7 @@ namespace ePower.Core.Models
         public virtual Status Status { get; set; }
         public virtual Project Project { get; set; }
 
+        public virtual ApplicationUser Creator { get; set; }
         //many to many - users
         //many to many - tags
     }
@@ -189,19 +188,19 @@ namespace ePower.Core.Models
 
         public virtual Task Task { get; set; }
         public virtual DocumentType DocumentType { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
     }
 
-    public class DocumentType : BaseExtended
+    public class DocumentType : BaseIdDescription
     {
-        public string Description { get; set; }
+
     }
 
     public class History : Base
-    {       
+    {
         public HistoryType Type { get; set; }
 
-        //link to user virtually?
-        public Guid UserId { get; set; } 
+        public virtual ApplicationUser Creator { get; set; }
     }
 
     public class Comment : Base
@@ -209,9 +208,8 @@ namespace ePower.Core.Models
         public string Description { get; set; }
 
         public virtual Task Task { get; set; }
-        //link to user virtually?
-        public Guid UserId { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
     }
 
-    #endregion
+    #endregion Core - Project
 }
