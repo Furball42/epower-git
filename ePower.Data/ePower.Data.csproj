@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{588A0150-B20D-4E85-A4F5-F540B417BED1}</ProjectGuid>
+    <ProjectGuid>{3897E82C-3841-4C06-843B-303FFB795766}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ePower.Core</RootNamespace>
-    <AssemblyName>ePower.Core</AssemblyName>
+    <RootNamespace>ePower.Data</RootNamespace>
+    <AssemblyName>ePower.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -85,9 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CoreModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\PortalModels.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Migrations\201804290901201_InitialMigration.cs" />
+    <Compile Include="Migrations\201804290901201_InitialMigration.Designer.cs">
+      <DependentUpon>201804290901201_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,10 +98,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core.ViewModels\" />
-    <Folder Include="Identity.ViewModels\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Portal.ViewModels\" />
+    <ProjectReference Include="..\ePower.Core\ePower.Core.csproj">
+      <Project>{588a0150-b20d-4e85-a4f5-f540b417bed1}</Project>
+      <Name>ePower.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804290901201_InitialMigration.resx">
+      <DependentUpon>201804290901201_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

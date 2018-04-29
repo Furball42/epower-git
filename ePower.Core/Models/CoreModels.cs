@@ -1,4 +1,4 @@
-﻿using ePower.Models;
+﻿using ePower.Identity.Models;
 using System;
 using System.Collections.Generic;
 
@@ -43,7 +43,7 @@ namespace ePower.Core.Models
 
     #endregion Base
 
-    #region Contact Entities
+    #region Core - Contact Entities
 
     public class Address : Base
     {

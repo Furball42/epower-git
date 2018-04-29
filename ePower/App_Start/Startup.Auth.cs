@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using ePower.Models;
+using ePower.Data;
+using ePower.Identity.Models;
 
 namespace ePower
 {

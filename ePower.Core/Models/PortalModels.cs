@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ePower.Core.Models
+namespace ePower.Portal.Models
 {
     public class UserInformation
     {
@@ -12,7 +12,7 @@ namespace ePower.Core.Models
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public virtual OrganizationInformation Organization { get; set; }
+        public virtual ICollection<OrganizationInformation> Organization { get; set; }
     }
 
     public class OrganizationInformation
