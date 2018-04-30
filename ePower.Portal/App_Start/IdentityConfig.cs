@@ -11,8 +11,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ePower.Portal.Models;
-using ePower.Data;
-using ePower.Identity.Models;
 
 namespace ePower.Portal
 {

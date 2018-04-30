@@ -6,15 +6,6 @@ using System.Threading.Tasks;
 
 namespace ePower.Portal.Models
 {
-    public class UserInformation
-    {
-        public Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-        public virtual ICollection<OrganizationInformation> Organization { get; set; }
-    }
-
     public class OrganizationInformation
     {
         public Guid Id { get; set; }

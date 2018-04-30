@@ -31,17 +31,4 @@ namespace ePower.Data
 
         }
     }
-
-    public class PortalDbContext : DbContext
-    {
-        public PortalDbContext()
-            : base("PortalConnection")
-        {
-
-        }
-
-        public DbSet<UserInformation> UserInformation { get; set; }
-        public DbSet<OrganizationInformation> OrganizationInformation { get; set; }
-
-    }
 }
