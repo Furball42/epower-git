@@ -100,6 +100,12 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Portal.ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ePower.Common\ePower.Common.csproj">
+      <Project>{4f5e3ff3-b271-4b00-8af1-6a93656bf1e0}</Project>
+      <Name>ePower.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

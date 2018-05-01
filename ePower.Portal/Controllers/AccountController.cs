@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ePower.Portal.Models;
+using ePower.Identity.Models;
 
 namespace ePower.Portal.Controllers
 {
@@ -151,7 +152,18 @@ namespace ePower.Portal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DateCreated = DateTime.Now,
+                    FirstName = model.FirstName,
+                    Gender = model.Gender,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    ProfilePicture = null,
+                    DoB = DateTime.Now,       
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -1,4 +1,5 @@
-﻿using ePower.Identity.Models;
+﻿using ePower.Common;
+using ePower.Identity.Models;
 using System;
 using System.Collections.Generic;
 
@@ -90,6 +91,7 @@ namespace ePower.Core.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string IDNumber { get; set; }
+        public Gender Gender { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<EmailAddress> EmailAddresses { get; set; }

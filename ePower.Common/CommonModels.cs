@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ePower.Common
 {
-    public class Class1
+    public enum Gender
     {
+        Male = 1,
+        Female = 2,
+        Other = 3
     }
 }
