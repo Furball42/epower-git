@@ -11,12 +11,17 @@ using ePower.Portal.Models;
 
 namespace ePower.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
 
+        }
+
+        public ApplicationDbContext(string connString)
+        {
+            this.Database.Connection.ConnectionString = connString;
         }
 
         public static ApplicationDbContext Create()
@@ -30,5 +35,39 @@ namespace ePower.Data
         {
 
         }
+    }    
+
+    public class PortalDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public PortalDbContext()
+            : base("PortalConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public static PortalDbContext Create()
+        {
+            return new PortalDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {            
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(au => au.ApplicationUserOrganizationInformations)
+                .WithRequired(ug => ug.ApplicationUser)
+                .HasForeignKey(ug => ug.ApplicationUserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<OrganizationInformation>()
+                .HasMany(grp => grp.ApplicationUserOrganizationInformations)
+                .WithRequired(ug => ug.OrganizationInformation)
+                .HasForeignKey(ug => ug.OrganizationId)
+                .WillCascadeOnDelete();
+        }  
+
+        public DbSet<OrganizationInformation> OrganizationInformation { get; set; }
     }
 }
+
+

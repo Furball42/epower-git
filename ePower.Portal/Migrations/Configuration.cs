@@ -1,19 +1,21 @@
 namespace ePower.Portal.Migrations
 {
+    using Data;
+    using Identity.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ePower.Identity.Models.PortalDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PortalDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(ePower.Identity.Models.PortalDbContext context)
+        protected override void Seed(PortalDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

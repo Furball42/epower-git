@@ -10,12 +10,15 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ePower.Portal.Models;
 using ePower.Identity.Models;
+using ePower.Portal.Helpers;
+using ePower.Data;
 
 namespace ePower.Portal.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private PortalDbContext db = new PortalDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -80,7 +83,8 @@ namespace ePower.Portal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Overview");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -161,12 +165,41 @@ namespace ePower.Portal.Controllers
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
                     ProfilePicture = null,
-                    DoB = DateTime.Now,       
-                };
+                    DoB = DateTime.Now,
+                    IsActive = true,
+                };                
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //new database creation
+                    int msecs = DateTime.Now.Millisecond;
+                    var dbName = model.OrganizationName.Replace(" ", "") + "_" + msecs.ToString();
+                    if(RegistrationHelpers.CreateNewRegisteredDatabase(dbName))
+                    {
+                        db.Users.Attach(user);
+
+                        var org = new OrganizationInformation();
+                        org.Id = Guid.NewGuid();
+                        org.Server = "localhost";
+                        org.Password = "";
+                        org.User = "";
+                        org.OrganizationName = model.OrganizationName;
+                        org.Database = dbName;
+
+                        db.OrganizationInformation.Add(org);
+
+                        ApplicationUserOrganizationInformations link = new ApplicationUserOrganizationInformations();
+                        link.ApplicationUser = user;
+                        link.OrganizationInformation = org;
+                        link.OrganizationId = org.Id;
+                        link.ApplicationUserId = user.Id;
+
+                        user.ApplicationUserOrganizationInformations.Add(link);
+
+                        db.SaveChanges();
+                    }                    
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

@@ -88,6 +88,7 @@
     <Compile Include="Models\CoreModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PortalModels.cs" />
+    <Compile Include="Portal.ViewModels\OverviewViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +99,6 @@
     <Folder Include="Core.ViewModels\" />
     <Folder Include="Identity.ViewModels\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Portal.ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ePower.Common\ePower.Common.csproj">

@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using ePower.Portal.Models;
 using ePower.Identity.Models;
+using ePower.Data;
 
 namespace ePower.Portal
 {

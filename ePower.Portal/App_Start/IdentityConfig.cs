@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ePower.Portal.Models;
 using ePower.Identity.Models;
+using ePower.Data;
 
 namespace ePower.Portal
 {
